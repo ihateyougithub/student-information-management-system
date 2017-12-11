@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <form action="">
+        <input type="text" placeholder="姓名" name="name" id="name" required>
+        <br>
+        <input type="number" name="age" placeholder="18" id="age" required>
+        <br>
+        <input type="text" placeholder="手机" name="phone" id="phone" required>
+        <br>
+        <input type="text" placeholder="邮箱" name="email" id="email" required>
+        <br>
+        <textarea type="text" placeholder="个人介绍" name="intro" cols="30" rows="10" required></textarea>
+        <br>
+    </form>
+    <button onclick="submit()">提交</button>
+    <script src="jquery.min.js"></script>
+    <script>
+        // localtion.search 获取URL
+        var id = location.search.split('=')[1];
+
+        function submit() {
+            // var name = $('#name').val();
+            // var age = $('#age').val();
+            // var phone = $('#phone').val();
+            // var email = $('#email').val();
+
+            
+            // var obj = {
+            //     name: name,
+            //     age: age,
+            //     phone: phone,
+            //     email: email,
+            //     id: id
+            // }
+            var obj = $('form').serialize().concat('&id=' + id);
+            
+            console.log(obj);
+
+            $.post('/update', obj, function (res) {
+                console.log($('form').serialize());
+                if (res.result == '200') {
+                    alert('修改成功');
+                    location.href = 'index.html'
+                } else {
+                    alert('修改失败');
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

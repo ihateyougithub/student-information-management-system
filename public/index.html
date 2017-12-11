@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .center-font {
+            text-align: center;
+            background-color: #49eff4;
+            margin-top: 0px;
+            line-height: 60px;
+        }
+        .center {
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin: 10px auto;
+            width: 70vw;
+        }
+        .center tr {
+            line-height: 50px;
+        }
+        .button{
+            margin: 10px 0 0 10px;
+            width: 6vw;
+            height: 2vw;
+            background-color: rgb(104, 99, 167);
+            border-radius: 5px;
+        }
+        td,th{
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="center-font">学生信息管理系统</h1>
+    <button class="button" onclick="location.href='newStudent.html'">添加学生</button>
+    <table class="center">
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>联系方式</th>
+            <th>邮箱</th>
+            <th>操作</th>
+        </tr>
+    </table>
+    <script src="jquery.min.js"></script>
+    <script src="template.js"></script>
+    <script id="template" type="text/html">
+        {{each items as item index}}
+           <tr>
+               <td>{{item.name}}</td>
+               <td>{{item.age}}</td>
+               <td>{{item.phone}}</td>
+               <td>{{item.email}}</td>
+               <td>
+                   <button data-id="{{item._id}}" onclick="location.href='update.html?id={{item._id}}'">修改</button>
+                   <button data-id="{{item._id}}">删除</button>
+               </td>
+            </tr>
+        {{/each}}
+    </script>
+    <script>
+        $.get('/show', null, function (responseData) {
+            console.log(responseData);
+            var obj = {
+                items: responseData
+            }
+            var html = template('template', obj);
+            $('table').append(html);
+
+            $('td button:nth-child(2)').click(function () {
+                var result = confirm('你确定要删除吗');
+                var id = $(this).data('id');
+                if (result == true) {
+                    $.get('/remove', { ID: id }, function (res) {
+                        console.log(res);
+                        if (res.result == '200') {
+                            alert('删除成功');
+                            location.href = 'index.html';
+                        } else {
+                            alert('删除失败');
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
