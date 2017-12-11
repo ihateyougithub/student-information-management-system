@@ -6,22 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
+    <style>
+        .recompose-information{
+            margin: 10vh auto;
+            padding: 10px 0;
+            width: 20vw;
+            line-height: 40px;
+            text-align: center;
+            background: linear-gradient(rgb(84, 84, 202), rgb(171, 171, 235))
+        }
+    </style>
 </head>
 
 <body>
-    <form action="">
+    <form action="" class="recompose-information">
+        <label for="">姓名：</label>
         <input type="text" placeholder="姓名" name="name" id="name" required>
         <br>
+        <label for="">年龄：</label>
         <input type="number" name="age" placeholder="18" id="age" required>
         <br>
+        <label for="">手机：</label>
         <input type="text" placeholder="手机" name="phone" id="phone" required>
         <br>
+        <label for="">邮箱：</label>
         <input type="text" placeholder="邮箱" name="email" id="email" required>
         <br>
         <textarea type="text" placeholder="个人介绍" name="intro" cols="30" rows="10" required></textarea>
         <br>
+        <button onclick="submit()">提交</button>
     </form>
-    <button onclick="submit()">提交</button>
     <script src="jquery.min.js"></script>
     <script>
         // localtion.search 获取URL
